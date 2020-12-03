@@ -1,7 +1,7 @@
 package com.example.currencycalculator.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.currencycalculator.repo.CurrencyConverterRepo
+import com.example.currencycalculator.data.source.repo.CurrencyConverterRepo
 import com.example.currencycalculator.ui.dialog.CurrencyViewModel
 import com.example.currencycalculator.util.getOrAwaitValue
 import com.example.currencycalculator.util.mock

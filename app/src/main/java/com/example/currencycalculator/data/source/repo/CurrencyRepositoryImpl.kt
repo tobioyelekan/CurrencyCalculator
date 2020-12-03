@@ -9,24 +9,21 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.currencycalculator.data.helper.Resource
 import com.example.currencycalculator.data.helper.Resource.Status
-import com.example.currencycalculator.data.helper.toCurrencyRateList
-import com.example.currencycalculator.data.helper.toCurrencySymbolList
 import com.example.currencycalculator.data.model.CurrencyRate
 import com.example.currencycalculator.data.model.CurrencySymbol
 import com.example.currencycalculator.data.source.local.CurrencyLocalDataSource
 import com.example.currencycalculator.data.source.remote.CurrencyRemoteDataSource
 import com.example.currencycalculator.util.WorkerClass
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class CurrencyRepoImpl @Inject constructor(
+class CurrencyRepositoryImpl @Inject constructor(
     private val remoteDataSource: CurrencyRemoteDataSource,
     private val localDataSource: CurrencyLocalDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-    @ApplicationContext private val context: Context
-) : CurrencyRepo {
+    private val context: Context
+) : CurrencyRepository {
 
     override fun fetchRateSymbols(): LiveData<Resource<Unit>> =
         liveData(ioDispatcher) {
@@ -58,7 +55,7 @@ class CurrencyRepoImpl @Inject constructor(
             }
         }
 
-    private suspend fun callNetwork() = coroutineScope {
+    override suspend fun callNetwork() = coroutineScope {
 
         val task1 = async { remoteDataSource.getRates() }
         val task2 = async { remoteDataSource.getSymbols() }
@@ -78,7 +75,6 @@ class CurrencyRepoImpl @Inject constructor(
         }
     }
 
-
     private suspend fun isDataAvailable(): Boolean {
         return withContext(ioDispatcher) {
             val task1 = async { getCurrencyRates() }
@@ -90,7 +86,6 @@ class CurrencyRepoImpl @Inject constructor(
             rates.isNotEmpty() && symbols.isNotEmpty()
         }
     }
-
 
     override fun searchSymbol(search: String): LiveData<List<CurrencySymbol>?> {
         return localDataSource.observeSymbols(search)

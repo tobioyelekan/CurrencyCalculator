@@ -2,10 +2,10 @@ package com.example.currencycalculator.repository
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.currencycalculator.data.local.dao.CurrencyRateDao
-import com.example.currencycalculator.data.local.dao.CurrencySymbolDao
-import com.example.currencycalculator.data.remote.CurrencyConverterService
-import com.example.currencycalculator.repo.CurrencyConverterRepo
+import com.example.currencycalculator.data.source.local.dao.RateDao
+import com.example.currencycalculator.data.source.local.dao.SymbolDao
+import com.example.currencycalculator.data.source.remote.CurrencyConverterService
+import com.example.currencycalculator.data.source.repo.CurrencyConverterRepo
 import com.example.currencycalculator.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -26,8 +26,8 @@ class ConverterRepoTest {
     var testCoroutineRule = TestCoroutineRule()
 
     private val converterService = mock(CurrencyConverterService::class.java)
-    private val rateDao = mock(CurrencyRateDao::class.java)
-    private val symbolDao = mock(CurrencySymbolDao::class.java)
+    private val rateDao = mock(RateDao::class.java)
+    private val symbolDao = mock(SymbolDao::class.java)
     private val context = mock(Context::class.java)
 
     private lateinit var repository: CurrencyConverterRepo

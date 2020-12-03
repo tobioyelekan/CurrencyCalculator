@@ -2,12 +2,12 @@ package com.example.currencycalculator.ui.convert
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.currencycalculator.repo.CurrencyConverterRepo
+import com.example.currencycalculator.data.source.repo.CurrencyRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ConvertViewModel @ViewModelInject constructor(
-    private val repo: CurrencyConverterRepo
+    private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
     private val selectFirst = MutableLiveData<String>()
@@ -26,7 +26,7 @@ class ConvertViewModel @ViewModelInject constructor(
 
     private fun fetchRate() {
         viewModelScope.launch {
-            val rates = repo.getCurrencyRate()
+            val rates = currencyRepository.getCurrencyRates()
             selectFirst(rates[0].currency)
             selectSecond(rates[1].currency)
         }
@@ -87,11 +87,11 @@ class ConvertViewModel @ViewModelInject constructor(
     }
 
     val firstCurrency = selectFirst.switchMap {
-        repo.getCurrency(it)
+        currencyRepository.getCurrency(it)
     }
 
     val secondCurrency = selectSecond.switchMap {
-        repo.getCurrency(it)
+        currencyRepository.getCurrency(it)
     }
 
 }

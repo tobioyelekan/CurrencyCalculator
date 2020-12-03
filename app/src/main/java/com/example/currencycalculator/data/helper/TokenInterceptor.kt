@@ -1,4 +1,4 @@
-package com.example.currencycalculator.data.source.remote
+package com.example.currencycalculator.data.helper
 
 import okhttp3.Interceptor
 import okhttp3.Interceptor.*

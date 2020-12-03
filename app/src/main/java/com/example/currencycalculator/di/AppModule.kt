@@ -3,12 +3,17 @@ package com.example.currencycalculator.di
 import android.content.Context
 import com.example.currencycalculator.*
 import com.example.currencycalculator.BuildConfig.BASE_URL
-import com.example.currencycalculator.data.local.dao.CurrencyRateDao
-import com.example.currencycalculator.data.local.CurrencyDatabase
-import com.example.currencycalculator.data.local.dao.CurrencySymbolDao
-import com.example.currencycalculator.data.remote.CurrencyConverterService
-import com.example.currencycalculator.data.remote.TokenInterceptor
-import com.google.gson.GsonBuilder
+import com.example.currencycalculator.data.source.local.dao.RateDao
+import com.example.currencycalculator.data.source.local.CurrencyDatabase
+import com.example.currencycalculator.data.source.local.dao.SymbolDao
+import com.example.currencycalculator.data.source.remote.CurrencyConverterService
+import com.example.currencycalculator.data.helper.TokenInterceptor
+import com.example.currencycalculator.data.source.local.CurrencyLocalDataSource
+import com.example.currencycalculator.data.source.local.CurrencyLocalDataSourceImpl
+import com.example.currencycalculator.data.source.remote.CurrencyRemoteDataSource
+import com.example.currencycalculator.data.source.remote.CurrencyRemoteDataSourceImpl
+import com.example.currencycalculator.data.source.repo.CurrencyRepository
+import com.example.currencycalculator.data.source.repo.CurrencyRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,14 +32,36 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesRateDao(@ApplicationContext context: Context): CurrencyRateDao {
+    fun providesRateDao(@ApplicationContext context: Context): RateDao {
         return CurrencyDatabase.getDatabase(context).currencyRateDao()
     }
 
     @Provides
     @Singleton
-    fun provideSymbolDao(@ApplicationContext context: Context): CurrencySymbolDao {
+    fun provideSymbolDao(@ApplicationContext context: Context): SymbolDao {
         return CurrencyDatabase.getDatabase(context).currencySymbolDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRepository(
+        remoteSource: CurrencyRemoteDataSource,
+        localSource: CurrencyLocalDataSource,
+        @ApplicationContext context: Context
+    ): CurrencyRepository {
+        return CurrencyRepositoryImpl(remoteSource, localSource, context = context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(service: CurrencyConverterService): CurrencyRemoteDataSource {
+        return CurrencyRemoteDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(rateDao: RateDao, symbolDao: SymbolDao): CurrencyLocalDataSource {
+        return CurrencyLocalDataSourceImpl(rateDao, symbolDao)
     }
 
     @Provides
@@ -52,10 +79,6 @@ class AppModule {
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(interceptor)
         }
-
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
 
         return Retrofit.Builder()
             .client(builder.build())

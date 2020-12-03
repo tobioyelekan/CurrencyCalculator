@@ -5,9 +5,11 @@ import com.example.currencycalculator.data.helper.Resource
 import com.example.currencycalculator.data.model.CurrencyRate
 import com.example.currencycalculator.data.model.CurrencySymbol
 
-interface CurrencyRepo {
+interface CurrencyRepository {
 
     fun fetchRateSymbols(): LiveData<Resource<Unit>>
+
+    suspend fun callNetwork(): Resource<String>
 
     fun searchSymbol(search: String): LiveData<List<CurrencySymbol>?>
 

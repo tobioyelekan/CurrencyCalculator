@@ -26,16 +26,6 @@ class RateDaoTest : DbSetup() {
     }
 
     @Test
-    fun insertAndLoadLiveDataRates() = runBlocking {
-        val rates = TestObjectUtil.rates
-        rateDao.saveAllRates(rates)
-
-        val result = rateDao.getCurrencies().getOrAwaitValue()
-        assertThat(result.size, `is`(3))
-        assertThat(result, `is`(rates))
-    }
-
-    @Test
     fun getCurrency() = runBlocking {
         val rates = TestObjectUtil.rates
         rateDao.saveAllRates(rates)

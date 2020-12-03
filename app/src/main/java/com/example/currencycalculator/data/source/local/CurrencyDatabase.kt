@@ -1,11 +1,11 @@
-package com.example.currencycalculator.data.local
+package com.example.currencycalculator.data.source.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.currencycalculator.data.local.dao.CurrencyRateDao
-import com.example.currencycalculator.data.local.dao.CurrencySymbolDao
+import com.example.currencycalculator.data.source.local.dao.RateDao
+import com.example.currencycalculator.data.source.local.dao.SymbolDao
 import com.example.currencycalculator.data.model.CurrencyRate
 import com.example.currencycalculator.data.model.CurrencySymbol
 
@@ -16,8 +16,8 @@ import com.example.currencycalculator.data.model.CurrencySymbol
 )
 abstract class CurrencyDatabase : RoomDatabase() {
 
-    abstract fun currencyRateDao(): CurrencyRateDao
-    abstract fun currencySymbolDao(): CurrencySymbolDao
+    abstract fun currencyRateDao(): RateDao
+    abstract fun currencySymbolDao(): SymbolDao
 
     companion object {
         private var instance: CurrencyDatabase? = null

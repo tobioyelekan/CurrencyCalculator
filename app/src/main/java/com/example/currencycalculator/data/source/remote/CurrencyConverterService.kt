@@ -1,4 +1,4 @@
-package com.example.currencycalculator.data.remote
+package com.example.currencycalculator.data.source.remote
 
 import retrofit2.Response
 import retrofit2.http.GET

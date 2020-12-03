@@ -1,4 +1,4 @@
-package com.example.currencycalculator.repo
+package com.example.currencycalculator.data.source.repo
 
 import android.content.Context
 import androidx.lifecycle.LiveData

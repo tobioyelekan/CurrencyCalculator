@@ -8,7 +8,7 @@ import androidx.room.Query
 import com.example.currencycalculator.data.model.CurrencyRate
 
 @Dao
-interface CurrencyRateDao {
+interface RateDao {
     @Query("SELECT * FROM currency_rate")
     suspend fun getCurrencyAsync(): List<CurrencyRate>
 
