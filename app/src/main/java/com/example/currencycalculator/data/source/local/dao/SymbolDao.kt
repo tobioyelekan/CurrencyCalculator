@@ -1,4 +1,4 @@
-package com.example.currencycalculator.data.local.dao
+package com.example.currencycalculator.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

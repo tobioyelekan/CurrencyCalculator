@@ -10,11 +10,11 @@ import androidx.work.WorkManager
 import com.example.currencycalculator.data.helper.Resource
 import com.example.currencycalculator.data.helper.toCurrencyRateList
 import com.example.currencycalculator.data.helper.toCurrencySymbolList
-import com.example.currencycalculator.data.local.dao.CurrencyRateDao
-import com.example.currencycalculator.data.local.dao.CurrencySymbolDao
+import com.example.currencycalculator.data.source.local.dao.RateDao
+import com.example.currencycalculator.data.source.local.dao.SymbolDao
 import com.example.currencycalculator.data.model.CurrencyRate
 import com.example.currencycalculator.data.model.CurrencySymbol
-import com.example.currencycalculator.data.remote.CurrencyConverterService
+import com.example.currencycalculator.data.source.remote.CurrencyConverterService
 import com.example.currencycalculator.util.WorkerClass
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -29,16 +29,14 @@ import javax.inject.Singleton
 @Singleton
 class CurrencyConverterRepo @Inject constructor(
     private val currencyConverterService: CurrencyConverterService,
-    private val rateDao: CurrencyRateDao,
-    private val symbolDao: CurrencySymbolDao,
+    private val rateDao: RateDao,
+    private val symbolDao: SymbolDao,
     @ApplicationContext private val context: Context
 ) {
 
     private suspend fun getRates() = currencyConverterService.getCurrencyRates()
 
     private suspend fun getSymbols() = currencyConverterService.getCurrencySymbols()
-
-    val currencyRates = rateDao.getCurrencies()
 
     fun searchSymbol(search: String) = symbolDao.getCurrencySymbols(search)
 

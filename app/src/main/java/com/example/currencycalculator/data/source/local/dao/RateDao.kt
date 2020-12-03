@@ -1,4 +1,4 @@
-package com.example.currencycalculator.data.local.dao
+package com.example.currencycalculator.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -9,9 +9,6 @@ import com.example.currencycalculator.data.model.CurrencyRate
 
 @Dao
 interface CurrencyRateDao {
-    @Query("SELECT * FROM currency_rate")
-    fun getCurrencies(): LiveData<List<CurrencyRate>>
-
     @Query("SELECT * FROM currency_rate")
     suspend fun getCurrencyAsync(): List<CurrencyRate>
 
