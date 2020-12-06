@@ -2,9 +2,10 @@ package com.example.currencycalculator.ui.dialog
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.currencycalculator.repo.CurrencyConverterRepo
+import com.example.currencycalculator.data.source.repo.CurrencyRepository
 
-class CurrencyViewModel @ViewModelInject constructor(repo: CurrencyConverterRepo) : ViewModel() {
+class CurrencyViewModel @ViewModelInject constructor
+    (currencyRepository: CurrencyRepository) : ViewModel() {
 
     private val _selectedCurrency = MutableLiveData<String>()
     val selectedCurrency: LiveData<String> = _selectedCurrency
@@ -20,7 +21,7 @@ class CurrencyViewModel @ViewModelInject constructor(repo: CurrencyConverterRepo
     }
 
     val symbols = _searchText.switchMap {
-        repo.searchSymbol(it)
+        currencyRepository.searchSymbol(it)
     }
 
     fun selectCurrency(currency: String) {

@@ -2,11 +2,11 @@ package com.example.currencycalculator.ui.splash
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.currencycalculator.repo.CurrencyConverterRepo
+import com.example.currencycalculator.data.source.repo.CurrencyRepository
 
 class SplashViewModel @ViewModelInject constructor(
-    repo: CurrencyConverterRepo
+    currencyRepository: CurrencyRepository
 ) : ViewModel() {
 
-    val status = repo.fetchRatesSymbols()
+    val status = currencyRepository.fetchRateSymbols()
 }
