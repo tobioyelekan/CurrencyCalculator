@@ -1,9 +1,8 @@
-package com.example.currencycalculator.db
+package com.example.currencycalculator.data.source.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import com.example.currencycalculator.data.source.local.CurrencyDatabase
 import com.example.currencycalculator.data.source.local.dao.RateDao
 import com.example.currencycalculator.data.source.local.dao.SymbolDao
 import org.junit.After
@@ -11,6 +10,7 @@ import org.junit.Before
 import org.junit.Rule
 
 abstract class DbSetup {
+
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 

@@ -1,4 +1,4 @@
-package com.example.currencycalculator.db
+package com.example.currencycalculator.util
 
 import com.example.currencycalculator.data.model.CurrencyRate
 import com.example.currencycalculator.data.model.CurrencySymbol
@@ -13,6 +13,7 @@ object TestObjectUtil {
     val rates = listOf(
         CurrencyRate("NGN", 455.3443),
         CurrencyRate("GHS", 6.90334),
-        CurrencyRate("USD", 1.53434)
+        CurrencyRate("USD", 1.53434),
+        CurrencyRate("CND", 2.53434)
     )
 }

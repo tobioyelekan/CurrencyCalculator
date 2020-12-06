@@ -9,12 +9,14 @@ interface CurrencyLocalDataSource {
 
     suspend fun getCurrencyRateAsync(): List<CurrencyRate>
 
+    suspend fun getSingleCurrencyRate(id: String): CurrencyRate
+
     fun observeRate(id: String): LiveData<CurrencyRate>
 
     suspend fun saveSymbols(symbols: List<CurrencySymbol>)
 
     suspend fun getCurrencySymbolAsync(): List<CurrencySymbol>
 
-    fun observeSymbols(search: String): LiveData<List<CurrencySymbol>?>
+    fun observeSymbols(search: String): LiveData<List<CurrencySymbol>>
 
 }

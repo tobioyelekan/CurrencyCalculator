@@ -13,7 +13,7 @@ import com.example.currencycalculator.data.source.local.CurrencyLocalDataSourceI
 import com.example.currencycalculator.data.source.remote.CurrencyRemoteDataSource
 import com.example.currencycalculator.data.source.remote.CurrencyRemoteDataSourceImpl
 import com.example.currencycalculator.data.source.repo.CurrencyRepository
-import com.example.currencycalculator.data.source.repo.CurrencyRepositoryImpl
+import com.example.currencycalculator.data.source.repo.DefaultCurrencyRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,7 +49,7 @@ class AppModule {
         localSource: CurrencyLocalDataSource,
         @ApplicationContext context: Context
     ): CurrencyRepository {
-        return CurrencyRepositoryImpl(remoteSource, localSource, context = context)
+        return DefaultCurrencyRepository(remoteSource, localSource, context = context)
     }
 
     @Provides

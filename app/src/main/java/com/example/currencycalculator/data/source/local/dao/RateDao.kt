@@ -15,6 +15,9 @@ interface RateDao {
     @Query("SELECT * FROM currency_rate WHERE currency = :id")
     fun getCurrency(id: String): LiveData<CurrencyRate>
 
+    @Query("SELECT * FROM currency_rate WHERE currency = :id")
+    fun getSingleCurrencyRate(id: String): CurrencyRate
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAllRates(rates: List<CurrencyRate>)
 }

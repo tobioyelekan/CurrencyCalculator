@@ -24,6 +24,10 @@ class CurrencyLocalDataSourceImpl @Inject constructor(
         return@withContext rateDao.getCurrencyAsync()
     }
 
+    override suspend fun getSingleCurrencyRate(id: String) = withContext(ioDispatcher) {
+        return@withContext rateDao.getSingleCurrencyRate(id)
+    }
+
     override fun observeRate(id: String): LiveData<CurrencyRate> {
         return rateDao.getCurrency(id)
     }
@@ -36,7 +40,7 @@ class CurrencyLocalDataSourceImpl @Inject constructor(
         return@withContext symbolDao.getCurrencySymbolsAsync()
     }
 
-    override fun observeSymbols(search: String): LiveData<List<CurrencySymbol>?> {
+    override fun observeSymbols(search: String): LiveData<List<CurrencySymbol>> {
         return symbolDao.getCurrencySymbols(search)
     }
 

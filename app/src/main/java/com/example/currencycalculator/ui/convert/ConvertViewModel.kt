@@ -2,6 +2,7 @@ package com.example.currencycalculator.ui.convert
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.example.currencycalculator.data.model.CurrencyRate
 import com.example.currencycalculator.data.source.repo.CurrencyRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -9,6 +10,9 @@ import kotlinx.coroutines.launch
 class ConvertViewModel @ViewModelInject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
+
+    private lateinit var firstCurrencyData: CurrencyRate
+    private lateinit var secondCurrencyData: CurrencyRate
 
     private val selectFirst = MutableLiveData<String>()
 
@@ -27,23 +31,26 @@ class ConvertViewModel @ViewModelInject constructor(
     private fun fetchRate() {
         viewModelScope.launch {
             val rates = currencyRepository.getCurrencyRates()
+            firstCurrencyData = rates[0]
+            secondCurrencyData = rates[1]
+
             selectFirst(rates[0].currency)
             selectSecond(rates[1].currency)
         }
     }
 
-    fun selectFirst(id: String) {
+    private fun selectFirst(id: String) {
         selectFirst.value = id
     }
 
-    fun selectSecond(id: String) {
+    private fun selectSecond(id: String) {
         selectSecond.value = id
     }
 
     fun changeCurrency(pos: Int, currency: String, firstAmount: String, secondAmount: String) {
         when (pos) {
             0 -> {
-                if (currency != firstCurrency.value?.currency) {
+                if (currency != firstCurrencyData.currency) {
                     viewModelScope.launch {
                         selectFirst(currency)
                         if (secondAmount.isNotEmpty()) {
@@ -54,7 +61,7 @@ class ConvertViewModel @ViewModelInject constructor(
                 }
             }
             1 -> {
-                if (currency != secondCurrency.value?.currency) {
+                if (currency != secondCurrencyData.currency) {
                     viewModelScope.launch {
                         selectSecond(currency)
                         if (firstAmount.isNotEmpty()) {
@@ -72,25 +79,31 @@ class ConvertViewModel @ViewModelInject constructor(
             0 -> {
                 _amountText2.value = convertCurrency(
                     amount,
-                    firstCurrency.value!!.rate,
-                    secondCurrency.value!!.rate
+                    firstCurrencyData.rate,
+                    secondCurrencyData.rate
                 )
             }
             1 -> {
                 _amountText1.value = convertCurrency(
                     amount,
-                    secondCurrency.value!!.rate,
-                    firstCurrency.value!!.rate
+                    secondCurrencyData.rate,
+                    firstCurrencyData.rate
                 )
             }
         }
     }
 
     val firstCurrency = selectFirst.switchMap {
+        viewModelScope.launch {
+            firstCurrencyData = currencyRepository.getSingleCurrencyRate(it)
+        }
         currencyRepository.getCurrency(it)
     }
 
     val secondCurrency = selectSecond.switchMap {
+        viewModelScope.launch {
+            firstCurrencyData = currencyRepository.getSingleCurrencyRate(it)
+        }
         currencyRepository.getCurrency(it)
     }
 

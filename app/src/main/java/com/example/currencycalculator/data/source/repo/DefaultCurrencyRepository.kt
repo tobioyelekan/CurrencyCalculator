@@ -18,7 +18,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class CurrencyRepositoryImpl @Inject constructor(
+class DefaultCurrencyRepository @Inject constructor(
     private val remoteDataSource: CurrencyRemoteDataSource,
     private val localDataSource: CurrencyLocalDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -87,12 +87,16 @@ class CurrencyRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun searchSymbol(search: String): LiveData<List<CurrencySymbol>?> {
+    override fun searchSymbol(search: String): LiveData<List<CurrencySymbol>> {
         return localDataSource.observeSymbols(search)
     }
 
     override suspend fun getCurrencyRates(): List<CurrencyRate> {
         return localDataSource.getCurrencyRateAsync()
+    }
+
+    override suspend fun getSingleCurrencyRate(id: String): CurrencyRate {
+        return localDataSource.getSingleCurrencyRate(id)
     }
 
     override suspend fun getCurrencySymbols(): List<CurrencySymbol> {

@@ -11,13 +11,15 @@ interface CurrencyRepository {
 
     suspend fun callNetwork(): Resource<String>
 
-    fun searchSymbol(search: String): LiveData<List<CurrencySymbol>?>
+    fun searchSymbol(search: String): LiveData<List<CurrencySymbol>>
 
     suspend fun getCurrencyRates(): List<CurrencyRate>
 
     suspend fun getCurrencySymbols(): List<CurrencySymbol>
 
     fun getCurrency(id: String): LiveData<CurrencyRate>
+
+    suspend fun getSingleCurrencyRate(id: String): CurrencyRate
 
     suspend fun saveRates(rates: List<CurrencyRate>)
 

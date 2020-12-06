@@ -13,7 +13,7 @@ interface SymbolDao {
     suspend fun getCurrencySymbolsAsync(): List<CurrencySymbol>
 
     @Query("SELECT * FROM currency_symbols WHERE name LIKE '%' || :searchText || '%' OR currency LIKE '%' || :searchText || '%'")
-    fun getCurrencySymbols(searchText: String): LiveData<List<CurrencySymbol>?>
+    fun getCurrencySymbols(searchText: String): LiveData<List<CurrencySymbol>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAllSymbols(symbols: List<CurrencySymbol>)
