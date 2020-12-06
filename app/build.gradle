@@ -124,26 +124,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
-//    testImplementation 'org.json:json:20201115'
-//    testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
-//    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
-//    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
-//    testImplementation 'junit:junit:4.13'
-//    testImplementation "org.robolectric:robolectric:$robolectricVersion"
-//    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
-//    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
-//    testImplementation "org.mockito:mockito-core:$mockitoVersion"
-//
-//    // AndroidX Test - Instrumented testing
-//    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
-//    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-//    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-//    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-//    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
-//    androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
-//    androidTestImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
-//    androidTestImplementation 'androidx.test:rules:1.2.0'
-//    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
-
 }
