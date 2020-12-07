@@ -13,9 +13,8 @@ The application is written entirely in Kotlin.
 It uses the single activity acrhitecture pattern which is the recommended way of building modern android apps and it's entirely structured with
 MVVM acrhitectire to ensure separation of concern and highly testable code.
 
-With the help of [giuide to architecture](https://developer.android.com/jetpack/guide), we simply check if there's cache data, if there's is, we proceed to the main screen displaying the cached
-and we make a network call to refresh the database, otherwise (if the cache is empty), we make a network call and save the response to the local database
-and proceed to the main screen.
+With the help of [giuide to architecture](https://developer.android.com/jetpack/guide), we simply check if there's cache data, if there's is, we proceed to the main screen displaying the cached data
+and we make a background network call and then update the database, otherwise (if the cache is empty), we make a network call, save the response to the local database and proceed to the main screen.
 
 ## Libraries used
 * [Room](https://developer.android.com/topic/libraries/architecture/room): The Room persistence library provides an abstraction 
@@ -26,7 +25,7 @@ asynchronous tasks that are expected to run even if the app exits or the device 
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android): for dependency injection
 * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata): An observable data holder class consumed by the layout to display ui data
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel): a class that housed UI-related data
-* [Retrofit](https://square.github.io/retrofit/): for making network calls
+* [Retrofit](https://square.github.io/retrofit/): for making network request
 * [Coroutine](https://developer.android.com/kotlin/coroutines): recommended way to make execute asynchronous code, main safe!, and eliminates call back hell code
 * [Timber](): used for logging
 * [Glide](https://github.com/bumptech/glide): a library for loading images
