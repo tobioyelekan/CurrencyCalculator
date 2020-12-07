@@ -5,7 +5,7 @@ This is a simple currency converter app that showcases modern android developmen
 The app uses the following api:
 
 * [fixer api](http://fixer.io) for retrieving list of countries, symbols and their current rates.
-* [flagcdn](https://flagcdn.com) for getting a countries logo with the corresponding country code
+* [flagcdn](https://flagcdn.com) for getting a country's logo with the corresponding country code.
 
 ## Introduction
 The application is written entirely in Kotlin.
