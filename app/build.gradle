@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
+def secretPropertiesFile = rootProject.file("secrets.properties")
+def secretsProperties = new Properties()
+secretsProperties.load(new FileInputStream(secretPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -14,8 +18,9 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", "\"http://data.fixer.io/api/\"")
+        buildConfigField("String", "API_KEY", secretsProperties["API_KEY"])
     }
 
     buildTypes {
@@ -23,11 +28,6 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"http://data.fixer.io/api/\"")
-        }
-
-        debug {
-            buildConfigField("String", "BASE_URL", "\"http://data.fixer.io/api/\"")
         }
     }
 

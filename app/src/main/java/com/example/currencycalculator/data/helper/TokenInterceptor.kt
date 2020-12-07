@@ -1,5 +1,6 @@
 package com.example.currencycalculator.data.helper
 
+import com.example.currencycalculator.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Interceptor.*
 import okhttp3.Response
@@ -13,7 +14,7 @@ class TokenInterceptor @Inject constructor(): Interceptor {
         val httpUrl = request.url
 
         val url = httpUrl.newBuilder()
-            .addQueryParameter("access_key", "98efa8d515e0874928adcb9c8c8255a0")
+            .addQueryParameter("access_key", BuildConfig.API_KEY)
             .build()
 
         val requestBuilder = request.newBuilder()
