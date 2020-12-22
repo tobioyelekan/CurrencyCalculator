@@ -1,11 +1,20 @@
 # Currency Calculator
 
+<p float="left">
+<img src="https://raw.githubusercontent.com/tobioyelekan/CurrencyCalculator/master/screenshots/home_1.png" width="290" height="500">
+<img src="https://raw.githubusercontent.com/tobioyelekan/CurrencyCalculator/master/screenshots/home_2.png" width="290" height="500">
+<img src="https://raw.githubusercontent.com/tobioyelekan/CurrencyCalculator/master/screenshots/dialog.png" width="300" height="500">
+</p>
+
+
 This is a simple currency converter app that showcases modern android development with MVVM Architecture
 
 The app uses the following api:
 
 * [fixer api](http://fixer.io) for retrieving list of countries, symbols and their current rates.
 * [flagcdn](https://flagcdn.com) for getting a country's logo with the corresponding country code.
+
+It's inspired by this [dribble](https://dribbble.com/shots/6647815-Calculator) design
 
 ## Introduction
 The application is written entirely in Kotlin.
